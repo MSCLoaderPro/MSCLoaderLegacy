@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 
 // GNU GPL 3.0
 #pragma warning disable CS1591, IDE1006, CS0618
@@ -54,7 +55,27 @@ namespace MSCLoader
         public Mod Mod { get; set; }
         [EditorBrowsable(EditorBrowsableState.Never)]
         [Obsolete("Old Settings is obsolete")]
-        public object Value { get; set; }
+        public object Value { get 
+            { 
+                if (settingType > 0) 
+                {
+                    if (settingType == 1) return (Mod.modSettings.settings.FirstOrDefault(x => x is SettingToggle && (x as SettingToggle).ID == ID) as SettingToggle).Value;
+                    if (settingType == 2) return (Mod.modSettings.settings.FirstOrDefault(x => x is SettingSlider && (x as SettingSlider).ID == ID) as SettingSlider).Value;
+                    if (settingType == 3) return (Mod.modSettings.settings.FirstOrDefault(x => x is SettingTextBox && (x as SettingTextBox).ID == ID) as SettingTextBox).Value;
+                }
+                return settingValue;
+            }
+            set
+            {
+                if (settingType > 0)
+                {
+                    if (settingType == 1) (Mod.modSettings.settings.FirstOrDefault(x => x is SettingToggle && (x as SettingToggle).ID == ID) as SettingToggle).Value = (bool)value;
+                    if (settingType == 2) (Mod.modSettings.settings.FirstOrDefault(x => x is SettingSlider && (x as SettingSlider).ID == ID) as SettingSlider).Value = (float)value;
+                    if (settingType == 3) (Mod.modSettings.settings.FirstOrDefault(x => x is SettingTextBox && (x as SettingTextBox).ID == ID) as SettingTextBox).Value = (string)value;
+                }
+                settingValue = value;
+            }
+            }
         [EditorBrowsable(EditorBrowsableState.Never)]
         [Obsolete("Old Settings is obsolete")]
         public Action DoAction { get; set; }
@@ -65,13 +86,16 @@ namespace MSCLoader
         [Obsolete("Old Settings is obsolete")]
         public object[] Vals { get; set; }
 
+        internal int settingType = 0;
+        object settingValue = null;
+
         [EditorBrowsable(EditorBrowsableState.Never)]
         [Obsolete("Old Settings is obsolete")]
         public Settings(string id, string name, object value)
         {
             ID = id;
             Name = name;
-            Value = value;
+            settingValue = value;
             DoAction = null;
         }
 
@@ -81,7 +105,7 @@ namespace MSCLoader
         {
             ID = id;
             Name = name;
-            Value = "DoAction";
+            settingValue = "DoAction";
             DoAction = doAction;
         }
 
@@ -91,7 +115,7 @@ namespace MSCLoader
         {
             ID = id;
             Name = name;
-            Value = value;
+            settingValue = value;
             DoAction = doAction;
         }
 
@@ -116,14 +140,15 @@ namespace MSCLoader
         public static void AddCheckBox(Mod mod, Settings setting)
         {
             setting.Mod = mod;
-            modSettingsDefault.Add(new Settings(setting.ID, setting.Name, setting.Value) { Mod = mod });
+            modSettingsDefault.Add(new Settings(setting.ID, setting.Name, setting.settingValue) { Mod = mod });
 
-            if (setting.Value is bool boolean)
+            if (setting.settingValue is bool boolean)
             {
                 setting.type = SettingsType.CheckBox;
                 modSettings.Add(setting);
 
-                SettingToggle toggle = mod.modSettings.AddToggle(setting.ID, setting.Name, boolean, (value) => { setting.Value = value; });
+                setting.settingType = 1;
+                SettingToggle toggle = mod.modSettings.AddToggle(setting.ID, setting.Name, boolean, (value) => { setting.settingValue = value; });
                 if (setting.DoAction != null) toggle.AddAction((value) => setting.DoAction());
             }
             else ModConsole.LogError($"[<b>{mod.ID}</b>] AddCheckBox: Non-bool value.");
@@ -134,16 +159,17 @@ namespace MSCLoader
         public static void AddCheckBox(Mod mod, Settings setting, string group)
         {
             setting.Mod = mod;
-            modSettingsDefault.Add(new Settings(setting.ID, setting.Name, setting.Value) { Mod = mod });
+            modSettingsDefault.Add(new Settings(setting.ID, setting.Name, setting.settingValue) { Mod = mod });
             setting.Vals = new object[1];
             
-            if (setting.Value is bool boolean)
+            if (setting.settingValue is bool boolean)
             {
                 setting.type = SettingsType.CheckBoxGroup;
                 setting.Vals[0] = group;
                 modSettings.Add(setting);
 
-                SettingToggle toggle = mod.modSettings.AddToggle(setting.ID, setting.Name, boolean, (value) => { setting.Value = value; });
+                setting.settingType = 1;
+                SettingToggle toggle = mod.modSettings.AddToggle(setting.ID, setting.Name, boolean, (value) => { setting.settingValue = value; });
                 if (setting.DoAction != null) toggle.AddAction((value) => setting.DoAction());
             }
             else ModConsole.LogError($"[<b>{mod.ID}</b>] AddCheckBox: Non-bool value.");
@@ -192,14 +218,15 @@ namespace MSCLoader
         public static void AddSlider(Mod mod, Settings setting, int minValue, int maxValue, string[] textValues)
         {
             setting.Mod = mod;
-            modSettingsDefault.Add(new Settings(setting.ID, setting.Name, setting.Value) { Mod = mod });
+            modSettingsDefault.Add(new Settings(setting.ID, setting.Name, setting.settingValue) { Mod = mod });
             setting.Vals = new object[4];
 
             //sometimes is double or Single (this should fix that, exclude types)
-            if (setting.Value.GetType() != typeof(float) || setting.Value.GetType() != typeof(string))
+            if (setting.settingValue.GetType() != typeof(float) || setting.settingValue.GetType() != typeof(string))
             {
-                SettingSlider slider = mod.modSettings.AddSlider(setting.ID, setting.Name, int.Parse(setting.Value.ToString()), minValue, maxValue);
-                if (setting.DoAction != null) slider.AddAction((value) => setting.DoAction());
+                setting.settingType = 2;
+                SettingSlider slider = mod.modSettings.AddSlider(setting.ID, setting.Name, int.Parse(setting.settingValue.ToString()), minValue, maxValue);
+                if (setting.DoAction != null) slider.AddAction((value) => { setting.DoAction.Invoke(); });
 
                 setting.type = SettingsType.Slider;
                 setting.Vals[0] = minValue;
@@ -224,13 +251,14 @@ namespace MSCLoader
         public static void AddSlider(Mod mod, Settings setting, float minValue, float maxValue, int decimalPoints = 2)
         {
             setting.Mod = mod;
-            modSettingsDefault.Add(new Settings(setting.ID, setting.Name, setting.Value) { Mod = mod });
+            modSettingsDefault.Add(new Settings(setting.ID, setting.Name, setting.settingValue) { Mod = mod });
             setting.Vals = new object[4];
 
-            if (setting.Value is float || setting.Value is double)
+            if (setting.settingValue is float || setting.settingValue is double)
             {
-                SettingSlider slider = mod.modSettings.AddSlider(setting.ID, setting.Name, float.Parse(setting.Value.ToString()), minValue, maxValue, decimalPoints);
-                if (setting.DoAction != null) slider.AddAction((value) => setting.DoAction());
+                setting.settingType = 2;
+                SettingSlider slider = mod.modSettings.AddSlider(setting.ID, setting.Name, float.Parse(setting.settingValue.ToString()), minValue, maxValue, decimalPoints);
+                if (setting.DoAction != null) slider.AddAction((value) => { setting.settingValue = slider.Value; setting.DoAction.Invoke(); });
 
                 setting.type = SettingsType.Slider;
                 setting.Vals[0] = minValue;
@@ -257,14 +285,15 @@ namespace MSCLoader
         public static void AddTextBox(Mod mod, Settings setting, string placeholderText, UnityEngine.Color titleTextColor)
         {
             setting.Mod = mod;
-            modSettingsDefault.Add(new Settings(setting.ID, setting.Name, setting.Value) { Mod = mod });
+            modSettingsDefault.Add(new Settings(setting.ID, setting.Name, setting.settingValue) { Mod = mod });
             setting.Vals = new object[2];
             setting.type = SettingsType.TextBox;
             setting.Vals[0] = placeholderText;
             setting.Vals[1] = titleTextColor;
             modSettings.Add(setting);
 
-            SettingTextBox textBox = mod.modSettings.AddTextBox(setting.ID, setting.Name, setting.Value.ToString(), placeholderText);
+            setting.settingType = 3;
+            SettingTextBox textBox = mod.modSettings.AddTextBox(setting.ID, setting.Name, setting.settingValue.ToString(), placeholderText);
             if (setting.DoAction != null) textBox.AddOnValueChangeAction((value) => setting.DoAction());
         }
 
