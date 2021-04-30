@@ -5,8 +5,7 @@ using System.Linq;
 using System.Threading;
 using UnityEngine;
 
-// GNU GPL 3.0
-#pragma warning disable CS1591, IDE1006, CS0618, IDE0059
+#pragma warning disable CS1591 
 namespace AudioLibrary
 {
     public class Manager : MonoBehaviour
@@ -63,10 +62,11 @@ namespace AudioLibrary
         {
             if (!IsSupportedFormat(filePath))
             {
-                Debug.LogError("Could not load AudioClip at path '" + filePath + "' it's extensions marks unsupported format, supported formats are: " + string.Join(", ", Enum.GetNames(typeof(AudioFormat))));
+                System.Console.WriteLine($"Could not load AudioClip at path '{ filePath }' it's extensions marks unsupported format, supported formats are: {string.Join(", ", Enum.GetNames(typeof(AudioFormat)))}");
                 return null;
             }
-            if (useCache && cache.TryGetValue(filePath, out AudioClip audioClip) && audioClip)
+            AudioClip audioClip;
+            if (useCache && cache.TryGetValue(filePath, out audioClip) && audioClip)
             {
                 return audioClip;
             }
@@ -98,7 +98,7 @@ namespace AudioLibrary
                         reader.Read(target, 0, target.Length);
                     }, delegate (int target)
                     {
-                        if(audioInstance.channels == 1)
+                        if (audioInstance.channels == 1)
                             reader.Seek(target * 4, SeekOrigin.Begin);
                         else
                             reader.Seek(target * 8, SeekOrigin.Begin);
@@ -139,13 +139,13 @@ namespace AudioLibrary
             catch (Exception ex)
             {
                 //SetAudioClipLoadState(audioClip, AudioDataLoadState.Failed);
-                MSCLoader.ModConsole.LogError(string.Concat(new object[]
+                MSCLoader.ModConsole.Error(string.Concat(new object[]
                 {
                     unityAudioClipName,
                     " - Failed:",
                     ex.Message
                 }));
-                Debug.LogError(string.Concat(new object[]
+                System.Console.WriteLine(string.Concat(new object[]
                 {
                     "Could not load AudioClip named '",
                     unityAudioClipName,
@@ -160,10 +160,8 @@ namespace AudioLibrary
         {
             if (deferredLoaderThread == null || !deferredLoaderThread.IsAlive)
             {
-                deferredLoaderThread = new Thread(new ThreadStart(DeferredLoaderMain))
-                {
-                    IsBackground = true
-                };
+                deferredLoaderThread = new Thread(new ThreadStart(DeferredLoaderMain));
+                deferredLoaderThread.IsBackground = true;
                 deferredLoaderThread.Start();
             }
         }
@@ -207,7 +205,7 @@ namespace AudioLibrary
                 }
                 catch (Exception exception)
                 {
-                    Debug.LogException(exception);
+                    System.Console.WriteLine(exception);
                     object obj3 = deferredSetFail;
                     lock (obj3)
                     {
@@ -253,10 +251,8 @@ namespace AudioLibrary
         {
             if (!managerInstance)
             {
-                managerInstance = new GameObject("Runtime AudioClip Loader Manger singleton instance")
-                {
-                    hideFlags = HideFlags.HideAndDontSave
-                };
+                managerInstance = new GameObject("Runtime AudioClip Loader Manger singleton instance");
+                managerInstance.hideFlags = HideFlags.HideAndDontSave;
                 managerInstance.AddComponent<Manager>();
             }
         }
@@ -310,8 +306,9 @@ namespace AudioLibrary
             {
                 result = (AudioFormat)Enum.Parse(typeof(AudioFormat), GetExtension(filePath), true);
             }
-            catch
+            catch (Exception e)
             {
+                Console.WriteLine(e);
             }
             return result;
         }
