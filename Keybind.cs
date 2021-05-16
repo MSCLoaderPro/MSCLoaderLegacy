@@ -7,40 +7,30 @@ using UnityEngine;
 #pragma warning disable CS1591
 namespace MSCLoader
 {
-    [EditorBrowsable(EditorBrowsableState.Never)]
-    [Obsolete("Old Keybind is obsolete, use SettingKeybind instead")]
+    [Obsolete("Old Keybind is obsolete, use SettingKeybind instead"), EditorBrowsable(EditorBrowsableState.Never)]
 	public class Keybind
     {
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old Keybind is obsolete, use SettingKeybind instead")]
+        [Obsolete("Old Keybind is obsolete, use SettingKeybind instead"), EditorBrowsable(EditorBrowsableState.Never)]
         public static List<Keybind> Keybinds = new List<Keybind>();
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old Keybind is obsolete, use SettingKeybind instead")]
+        [Obsolete("Old Keybind is obsolete, use SettingKeybind instead"), EditorBrowsable(EditorBrowsableState.Never)]
         public static List<Keybind> DefaultKeybinds = new List<Keybind>();
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old Keybind is obsolete, use SettingKeybind instead")]
+        [Obsolete("Old Keybind is obsolete, use SettingKeybind instead"), EditorBrowsable(EditorBrowsableState.Never)]
         public string ID, Name;
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old Keybind is obsolete, use SettingKeybind instead")]
+        [Obsolete("Old Keybind is obsolete, use SettingKeybind instead"), EditorBrowsable(EditorBrowsableState.Never)]
         public KeyCode Key, Modifier;
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old Keybind is obsolete, use SettingKeybind instead")]
+        [Obsolete("Old Keybind is obsolete, use SettingKeybind instead"), EditorBrowsable(EditorBrowsableState.Never)]
         public Mod Mod;
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old Keybind is obsolete, use SettingKeybind instead")]
+        [Obsolete("Old Keybind is obsolete, use SettingKeybind instead"), EditorBrowsable(EditorBrowsableState.Never)]
         public object[] Vals { get; set; }
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old Keybind is obsolete, use SettingKeybind instead")]
+        [Obsolete("Old Keybind is obsolete, use SettingKeybind instead"), EditorBrowsable(EditorBrowsableState.Never)]
         public SettingKeybind keybind;
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old Keybind is obsolete, use SettingKeybind instead")]
+        [Obsolete("Old Keybind is obsolete, use SettingKeybind instead"), EditorBrowsable(EditorBrowsableState.Never)]
         public bool noModifier = false;
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old Keybind is obsolete, use modSettings.AddKeybind() instead.")]
+        [Obsolete("Old Keybind is obsolete, use modSettings.AddKeybind() instead."), EditorBrowsable(EditorBrowsableState.Never)]
         public static void Add(Mod mod, Keybind key)
         {
             key.Mod = mod;
@@ -53,26 +43,21 @@ namespace MSCLoader
                 key.keybind = mod.modSettings.AddKeybind(key.ID, key.Name, key.Key, key.Modifier);
         }
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old header is obsolete, use modSettings.AddHeader() instead.")]
+        [Obsolete("Old header is obsolete, use modSettings.AddHeader() instead."), EditorBrowsable(EditorBrowsableState.Never)]
         public static void AddHeader(Mod mod, string HeaderTitle) => 
             mod.modSettings.AddHeader(HeaderTitle);
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old header is obsolete, use modSettings.AddHeader() instead.")]
+        [Obsolete("Old header is obsolete, use modSettings.AddHeader() instead."), EditorBrowsable(EditorBrowsableState.Never)]
         public static void AddHeader(Mod mod, string HeaderTitle, Color backgroundColor, Color textColor) => 
             mod.modSettings.AddHeader(HeaderTitle, backgroundColor, textColor);
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old Keybind is obsolete")]
+        [Obsolete("Old Keybind is obsolete"), EditorBrowsable(EditorBrowsableState.Never)]
         public static List<Keybind> Get(Mod mod) => Keybinds.FindAll(x => x.Mod == mod);
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old Keybind is obsolete")]
+        [Obsolete("Old Keybind is obsolete"), EditorBrowsable(EditorBrowsableState.Never)]
         public static List<Keybind> GetDefault(Mod mod) => DefaultKeybinds.FindAll(x => x.Mod == mod);
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old Keybind is obsolete")]
+        [Obsolete("Old Keybind is obsolete"), EditorBrowsable(EditorBrowsableState.Never)]
         public Keybind(string id, string name, KeyCode key)
         {
             ID = id;
@@ -81,8 +66,7 @@ namespace MSCLoader
             noModifier = true;
         }
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old Keybind is obsolete, use modSettings.AddKeybind() instead.")]
+        [Obsolete("Old Keybind is obsolete, use modSettings.AddKeybind() instead."), EditorBrowsable(EditorBrowsableState.Never)]
         public Keybind(string id, string name, KeyCode key, KeyCode modifier)
         {
             ID = id;
@@ -92,20 +76,15 @@ namespace MSCLoader
             noModifier = false;
         }
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old Keybind is obsolete")]
+        [Obsolete("Old Keybind is obsolete"), EditorBrowsable(EditorBrowsableState.Never)]
         public bool GetKeybind() => keybind.GetKey();
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old Keybind is obsolete")]
+        [Obsolete("Old Keybind is obsolete"), EditorBrowsable(EditorBrowsableState.Never)]
         public bool GetKeybindDown() => keybind.GetKeyDown();
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old Keybind is obsolete")]
+        [Obsolete("Old Keybind is obsolete"), EditorBrowsable(EditorBrowsableState.Never)]
         public bool GetKeybindUp() => keybind.GetKeyUp();
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old Keybind is obsolete")]
+        [Obsolete("Old Keybind is obsolete"), EditorBrowsable(EditorBrowsableState.Never)]
         public bool IsPressed() => keybind.GetKey();
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old Keybind is obsolete")]
+        [Obsolete("Old Keybind is obsolete"), EditorBrowsable(EditorBrowsableState.Never)]
         public bool IsDown() => keybind.GetKeyDown();
     }
 }

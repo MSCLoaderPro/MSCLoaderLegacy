@@ -1,7 +1,5 @@
 ﻿using MSCLoader.Helper;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using UnityEngine;
@@ -10,26 +8,21 @@ using UnityEngine;
 #pragma warning disable CS1591, IDE1006, CS0618
 namespace MSCLoader
 {
-    [EditorBrowsable(EditorBrowsableState.Never)]
-    [Obsolete("Deprecated, use ModAssets instead.")]
+    [Obsolete("Deprecated, use ModAssets instead."), EditorBrowsable(EditorBrowsableState.Never)]
     public static class LoadAssets
     {
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Deprecated, use the extension method gameObject.MakePickable() instead.")]
+        [Obsolete("Deprecated, use the extension method gameObject.MakePickable() instead."), EditorBrowsable(EditorBrowsableState.Never)]
         public static void MakeGameObjectPickable(GameObject go) => go.MakePickable();
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Deprecated, use ModAssets.LoadTexture() instead.")]
+        [Obsolete("Deprecated, use ModAssets.LoadTexture() instead."), EditorBrowsable(EditorBrowsableState.Never)]
         public static Texture2D LoadTexture(Mod mod, string fileName, bool normalMap = false) =>
             ModAssets.LoadTexture(Path.Combine(ModLoader.GetModAssetsFolder(mod), fileName), normalMap);
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Deprecated, use ModAssets.LoadBundle() instead.")]
+        [Obsolete("Deprecated, use ModAssets.LoadBundle() instead."), EditorBrowsable(EditorBrowsableState.Never)]
         public static AssetBundle LoadBundle(Mod mod, string bundleName) =>
             ModAssets.LoadBundle(mod, bundleName);
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("LoadOBJ is deprecated, please use AssetBundles instead or ModAssets.LoadMeshOBJ().")]
+        [Obsolete("LoadOBJ is deprecated, please use AssetBundles instead or ModAssets.LoadMeshOBJ()."), EditorBrowsable(EditorBrowsableState.Never)]
         public static GameObject LoadOBJ(Mod mod, string fileName, bool collider = true, bool rigidbody = false)
         {
             Mesh mesh = ModAssets.LoadMeshOBJ(Path.Combine(ModLoader.GetModAssetsFolder(mod), fileName));
@@ -53,8 +46,7 @@ namespace MSCLoader
                 return null;
         }
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("LoadOBJMesh is deprecated, please use AssetBundles instead.")]
+        [Obsolete("LoadOBJMesh is deprecated, please use AssetBundles instead."), EditorBrowsable(EditorBrowsableState.Never)]
         public static Mesh LoadOBJMesh(Mod mod, string fileName)
         {
             string path = Path.Combine(ModLoader.GetModAssetsFolder(mod), fileName);

@@ -34,27 +34,20 @@ namespace MSCLoader
         Text
     }
 
-    [EditorBrowsable(EditorBrowsableState.Never)]
-    [Obsolete("Old Settings is obsolete")]
+    [Obsolete("Old Settings is obsolete"), EditorBrowsable(EditorBrowsableState.Never)]
     public class Settings
     {
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old Settings is obsolete")]
+        [Obsolete("Old Settings is obsolete"), EditorBrowsable(EditorBrowsableState.Never)]
         public static List<Settings> modSettings = new List<Settings>();
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old Settings is obsolete")]
+        [Obsolete("Old Settings is obsolete"), EditorBrowsable(EditorBrowsableState.Never)]
         public static List<Settings> modSettingsDefault = new List<Settings>();
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old Settings is obsolete")]
+        [Obsolete("Old Settings is obsolete"), EditorBrowsable(EditorBrowsableState.Never)]
         public string ID { get; set; }
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old Settings is obsolete")]
+        [Obsolete("Old Settings is obsolete"), EditorBrowsable(EditorBrowsableState.Never)]
         public string Name { get; set; }
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old Settings is obsolete")]
+        [Obsolete("Old Settings is obsolete"), EditorBrowsable(EditorBrowsableState.Never)]
         public Mod Mod { get; set; }
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old Settings is obsolete")]
+        [Obsolete("Old Settings is obsolete"), EditorBrowsable(EditorBrowsableState.Never)]
         public object Value { get 
             { 
                 if (settingType > 0) 
@@ -75,22 +68,18 @@ namespace MSCLoader
                 }
                 settingValue = value;
             }
-            }
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old Settings is obsolete")]
+        }
+        [Obsolete("Old Settings is obsolete"), EditorBrowsable(EditorBrowsableState.Never)]
         public Action DoAction { get; set; }
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old Settings is obsolete")]
+        [Obsolete("Old Settings is obsolete"), EditorBrowsable(EditorBrowsableState.Never)]
         public SettingsType type { get; set; }
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old Settings is obsolete")]
+        [Obsolete("Old Settings is obsolete"), EditorBrowsable(EditorBrowsableState.Never)]
         public object[] Vals { get; set; }
 
         internal int settingType = 0;
         object settingValue = null;
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old Settings is obsolete")]
+        [Obsolete("Old Settings is obsolete"), EditorBrowsable(EditorBrowsableState.Never)]
         public Settings(string id, string name, object value)
         {
             ID = id;
@@ -99,8 +88,7 @@ namespace MSCLoader
             DoAction = null;
         }
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old Settings is obsolete")]
+        [Obsolete("Old Settings is obsolete"), EditorBrowsable(EditorBrowsableState.Never)]
         public Settings(string id, string name, Action doAction)
         {
             ID = id;
@@ -109,8 +97,7 @@ namespace MSCLoader
             DoAction = doAction;
         }
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old Settings is obsolete")]
+        [Obsolete("Old Settings is obsolete"), EditorBrowsable(EditorBrowsableState.Never)]
         public Settings(string id, string name, object value, Action doAction)
         {
             ID = id;
@@ -119,24 +106,19 @@ namespace MSCLoader
             DoAction = doAction;
         }
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old Settings is obsolete")]
+        [Obsolete("Old Settings is obsolete"), EditorBrowsable(EditorBrowsableState.Never)]
         public object GetValue() => Value; //Return whatever is there
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old Settings is obsolete")]
+        [Obsolete("Old Settings is obsolete"), EditorBrowsable(EditorBrowsableState.Never)]
         public static void HideResetAllButton(Mod mod) { }
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old Settings is obsolete")]
+        [Obsolete("Old Settings is obsolete"), EditorBrowsable(EditorBrowsableState.Never)]
         public static List<Settings> GetDefault(Mod mod) => modSettingsDefault.FindAll(x => x.Mod == mod);
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old Settings is obsolete. Use modSettings.settings instead.")]
+        [Obsolete("Old Settings is obsolete. Use modSettings.settings instead."), EditorBrowsable(EditorBrowsableState.Never)]
         public static List<Settings> Get(Mod mod) => modSettings.FindAll(x => x.Mod == mod);
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old Settings is obsolete. Use modSettings.AddToggle() instead.")]
+        [Obsolete("Old Settings is obsolete. Use modSettings.AddToggle() instead."), EditorBrowsable(EditorBrowsableState.Never)]
         public static void AddCheckBox(Mod mod, Settings setting)
         {
             setting.Mod = mod;
@@ -154,8 +136,7 @@ namespace MSCLoader
             else ModConsole.LogError($"[<b>{mod.ID}</b>] AddCheckBox: Non-bool value.");
         }
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old Settings is obsolete. Use modSettings.AddToggle() instead.")]
+        [Obsolete("Old Settings is obsolete. Use modSettings.AddToggle() instead."), EditorBrowsable(EditorBrowsableState.Never)]
         public static void AddCheckBox(Mod mod, Settings setting, string group)
         {
             setting.Mod = mod;
@@ -175,18 +156,15 @@ namespace MSCLoader
             else ModConsole.LogError($"[<b>{mod.ID}</b>] AddCheckBox: Non-bool value.");
         }
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old Settings is obsolete. Use modSettings.AddButton() instead.")]
+        [Obsolete("Old Settings is obsolete. Use modSettings.AddButton() instead."), EditorBrowsable(EditorBrowsableState.Never)]
         public static void AddButton(Mod mod, Settings setting, string description = null) => 
             AddButton(mod, setting, new UnityEngine.Color32(0, 113, 166, 255), new UnityEngine.Color32(0, 153, 166, 255), new UnityEngine.Color32(0, 183, 166, 255), description);
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old Settings is obsolete. Use modSettings.AddButton() instead.")]
+        [Obsolete("Old Settings is obsolete. Use modSettings.AddButton() instead."), EditorBrowsable(EditorBrowsableState.Never)]
         public static void AddButton(Mod mod, Settings setting, UnityEngine.Color normalColor, UnityEngine.Color highlightedColor, UnityEngine.Color pressedColor, string description = null) => 
             AddButton(mod, setting, normalColor, highlightedColor, pressedColor, UnityEngine.Color.white, description);
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old Settings is obsolete. Use modSettings.AddButton() instead.")]
+        [Obsolete("Old Settings is obsolete. Use modSettings.AddButton() instead."), EditorBrowsable(EditorBrowsableState.Never)]
         public static void AddButton(Mod mod, Settings setting, UnityEngine.Color normalColor, UnityEngine.Color highlightedColor, UnityEngine.Color pressedColor, UnityEngine.Color buttonTextColor, string description = null)
         {
             setting.Mod = mod;
@@ -208,13 +186,11 @@ namespace MSCLoader
             else ModConsole.LogError($"[<b>{mod.ID}</b>] AddButton: Action cannot be null.");
         }
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old Settings is obsolete. Use modSettings.AddSlider() instead.")]
+        [Obsolete("Old Settings is obsolete. Use modSettings.AddSlider() instead."), EditorBrowsable(EditorBrowsableState.Never)]
         public static void AddSlider(Mod mod, Settings setting, int minValue, int maxValue) => 
             AddSlider(mod, setting, minValue, maxValue, null);
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old Settings is obsolete. Use modSettings.AddSlider() instead.")]
+        [Obsolete("Old Settings is obsolete. Use modSettings.AddSlider() instead."), EditorBrowsable(EditorBrowsableState.Never)]
         public static void AddSlider(Mod mod, Settings setting, int minValue, int maxValue, string[] textValues)
         {
             setting.Mod = mod;
@@ -246,8 +222,7 @@ namespace MSCLoader
             else ModConsole.LogError($"[<b>{mod.ID}</b>] AddSlider: only int allowed here");
         }
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old Settings is obsolete. Use modSettings.AddSlider() instead.")]
+        [Obsolete("Old Settings is obsolete. Use modSettings.AddSlider() instead."), EditorBrowsable(EditorBrowsableState.Never)]
         public static void AddSlider(Mod mod, Settings setting, float minValue, float maxValue, int decimalPoints = 2)
         {
             setting.Mod = mod;
@@ -270,18 +245,15 @@ namespace MSCLoader
             else ModConsole.LogError($"[<b>{mod.ID}</b>] AddSlider: only float allowed here");
         }
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old Settings is obsolete. Use modSettings.AddSlider() instead.")]
+        [Obsolete("Old Settings is obsolete. Use modSettings.AddSlider() instead."), EditorBrowsable(EditorBrowsableState.Never)]
         public static void AddSlider(Mod mod, Settings setting, float minValue, float maxValue) => 
             AddSlider(mod, setting, minValue, maxValue, 2);
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old Settings is obsolete. Use modSettings.AddTextBox() instead.")]
+        [Obsolete("Old Settings is obsolete. Use modSettings.AddTextBox() instead."), EditorBrowsable(EditorBrowsableState.Never)]
         public static void AddTextBox(Mod mod, Settings setting, string placeholderText) => 
             AddTextBox(mod, setting, placeholderText, UnityEngine.Color.white);
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old Settings is obsolete. Use modSettings.AddTextBox() instead.")]
+        [Obsolete("Old Settings is obsolete. Use modSettings.AddTextBox() instead."), EditorBrowsable(EditorBrowsableState.Never)]
         public static void AddTextBox(Mod mod, Settings setting, string placeholderText, UnityEngine.Color titleTextColor)
         {
             setting.Mod = mod;
@@ -297,18 +269,15 @@ namespace MSCLoader
             if (setting.DoAction != null) textBox.AddOnValueChangeAction((value) => setting.DoAction());
         }
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old Settings is obsolete. Use modSettings.AddHeader() instead.")]
+        [Obsolete("Old Settings is obsolete. Use modSettings.AddHeader() instead."), EditorBrowsable(EditorBrowsableState.Never)]
         public static void AddHeader(Mod mod, string HeaderTitle) => 
             AddHeader(mod, HeaderTitle, UnityEngine.Color.blue, UnityEngine.Color.white);
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old Settings is obsolete. Use modSettings.AddHeader() instead.")]
+        [Obsolete("Old Settings is obsolete. Use modSettings.AddHeader() instead."), EditorBrowsable(EditorBrowsableState.Never)]
         public static void AddHeader(Mod mod, string HeaderTitle, UnityEngine.Color backgroundColor) => 
             AddHeader(mod, HeaderTitle, backgroundColor, UnityEngine.Color.white);
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old Settings is obsolete. Use modSettings.AddHeader() instead.")]
+        [Obsolete("Old Settings is obsolete. Use modSettings.AddHeader() instead."), EditorBrowsable(EditorBrowsableState.Never)]
         public static void AddHeader(Mod mod, string HeaderTitle, UnityEngine.Color backgroundColor, UnityEngine.Color textColor)
         {
             Settings setting = new Settings(null, HeaderTitle, null)
@@ -325,8 +294,7 @@ namespace MSCLoader
             mod.modSettings.AddHeader(HeaderTitle);
         }
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old Settings is obsolete. Use modSettings.AddText() instead.")]
+        [Obsolete("Old Settings is obsolete. Use modSettings.AddText() instead."), EditorBrowsable(EditorBrowsableState.Never)]
         public static void AddText(Mod mod, string text)
         {
             Settings setting = new Settings(null, text, null)
@@ -339,8 +307,7 @@ namespace MSCLoader
             mod.modSettings.AddText(text);
         }
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Old Settings is obsolete. Does not do anything.")]
+        [Obsolete("Old Settings is obsolete. Does not do anything."), EditorBrowsable(EditorBrowsableState.Never)]
         public static void AddResetButton(Mod mod, string name, Settings[] sets)
         {
             if (sets != null)

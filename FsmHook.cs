@@ -36,7 +36,7 @@ namespace MSCLoader
             else ModConsole.LogError(string.Format("Cannot find state <b>{0}</b> in GameObject <b>{1}</b>", stateName, gameObject.name));
         }
 
-        private static FsmState GetStateFromGameObject(GameObject obj, string stateName)
+        static FsmState GetStateFromGameObject(GameObject obj, string stateName)
         {
             PlayMakerFSM[] comps = obj.GetComponents<PlayMakerFSM>();
             foreach (PlayMakerFSM playMakerFsm in comps)

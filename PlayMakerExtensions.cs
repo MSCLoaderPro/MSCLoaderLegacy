@@ -1,17 +1,16 @@
 ﻿using HutongGames.PlayMaker;
 using System;
-using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
-using System.Text;
 using UnityEngine;
 
 #pragma warning disable CS1591
 namespace MSCLoader
 {
-    [Obsolete("Use MSCLoader.Helper.PlayMakerHelper instead.")]
+    [Obsolete("Use MSCLoader.Helper.PlayMakerHelper instead."), EditorBrowsable(EditorBrowsableState.Never)]
     public static class PlayMakerExtensions
     {
-        [Obsolete("Use MSCLoader.Helper.PlayMakerHelper.GetPlayMakerFSM() instead.")]
+        [Obsolete("Use MSCLoader.Helper.PlayMakerHelper.GetPlayMakerFSM() instead."), EditorBrowsable(EditorBrowsableState.Never)]
         public static PlayMakerFSM GetPlayMaker(this GameObject obj, string playMakerName)
         {
             PlayMakerFSM[] pm = obj.GetComponents<PlayMakerFSM>();
@@ -31,7 +30,7 @@ namespace MSCLoader
             return null;
         }
 
-        [Obsolete("Use MSCLoader.Helper.PlayMakerHelper.GetPlayMakerFSM() instead.")]
+        [Obsolete("Use MSCLoader.Helper.PlayMakerHelper.GetPlayMakerFSM() instead."), EditorBrowsable(EditorBrowsableState.Never)]
         public static PlayMakerFSM GetPlayMaker(this Transform t, string playMakerName)
         {
             return t.gameObject.GetPlayMaker(playMakerName);

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using UnityEngine;
 
@@ -8,13 +9,13 @@ using UnityEngine;
 #pragma warning disable CS1591, IDE1006, CS0618
 namespace MSCLoader
 {
-    [Obsolete("SaveLoad is obsolete, use ModSave instead.")]
+    [Obsolete("SaveLoad is obsolete, use ModSave instead."), EditorBrowsable(EditorBrowsableState.Never)]
     public class SaveData
     {
         public List<SaveDataList> save = new List<SaveDataList>();
     }
 
-    [Obsolete("SaveLoad is obsolete, use ModSave instead.")]
+    [Obsolete("SaveLoad is obsolete, use ModSave instead."), EditorBrowsable(EditorBrowsableState.Never)]
     public class SaveDataList
     {
         public string name;
@@ -22,10 +23,10 @@ namespace MSCLoader
         public float rotX, rotY, rotZ;
     }
 
-    [Obsolete("SaveLoad is obsolete, use ModSave instead.")]
+    [Obsolete("SaveLoad is obsolete, use ModSave instead."), EditorBrowsable(EditorBrowsableState.Never)]
     public class SaveLoad
     {
-        [Obsolete("SaveLoad is obsolete, use ModSave instead.")]
+        [Obsolete("SaveLoad is obsolete, use ModSave instead."), EditorBrowsable(EditorBrowsableState.Never)]
         public static void SaveGameObject(Mod mod, GameObject g, string fileName)
         {
             SaveData save = new SaveData();
@@ -41,7 +42,7 @@ namespace MSCLoader
             File.WriteAllText(Path.Combine(Application.persistentDataPath, string.Format("{0}_{1}", mod.ID, fileName)), Newtonsoft.Json.JsonConvert.SerializeObject(save, Newtonsoft.Json.Formatting.Indented));
         }
 
-        [Obsolete("SaveLoad is obsolete, use ModSave instead.")]
+        [Obsolete("SaveLoad is obsolete, use ModSave instead."), EditorBrowsable(EditorBrowsableState.Never)]
         public static void LoadGameObject(Mod mod, string fileName)
         {
             SaveData data = DeserializeSaveFile<SaveData>(mod, fileName);
@@ -50,7 +51,7 @@ namespace MSCLoader
             go.transform.rotation = Quaternion.Euler(data.save[0].rotX, data.save[0].rotY, data.save[0].rotZ);
         }
 
-        [Obsolete("SaveLoad is obsolete, use ModSave instead.")]
+        [Obsolete("SaveLoad is obsolete, use ModSave instead."), EditorBrowsable(EditorBrowsableState.Never)]
         public static void SerializeSaveFile<T>(Mod mod, T saveDataClass, string fileName)
         {
             var config = new JsonSerializerSettings
@@ -64,7 +65,8 @@ namespace MSCLoader
 
             File.WriteAllText(path, serializedData);
         }
-        [Obsolete("SaveLoad is obsolete, use ModSave instead.")]
+        
+        [Obsolete("SaveLoad is obsolete, use ModSave instead."), EditorBrowsable(EditorBrowsableState.Never)]
         public static T DeserializeSaveFile<T>(Mod mod, string fileName) where T : new()
         {
             string path = Path.Combine(ModLoader.GetModSettingsFolder(mod), fileName);
